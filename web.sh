@@ -9,7 +9,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-echo -e "script is started executing at:$Y $TIMESTAMP $N"
+echo -e "script is started executing at:$Y $TIMESTAMP $N" &>> $LOGFILENEW
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -29,26 +29,26 @@ else
     echo -e "$G You are root user $N"
 fi
 
-dnf install nginx -y
+dnf install nginx -y &>> $LOGFILENEW
 VALIDATE $? "Installing Nginx"
 
 systemctl enable nginx
 VALIDATE $? "Enable Nginx"
 
-systemctl start nginx
+systemctl start nginx &>> $LOGFILENEW
 VALIDATE $? "start Nginx"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/* &>> $LOGFILENEW
 VALIDATE $? "removing default content"
 
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html &>> $LOGFILENEW
 VALIDATE $? "moving to nginx html dir"
 
-unzip -o /tmp/web.zip
+unzip -o /tmp/web.zip &>> $LOGFILENEW
 VALIDATE $? "unzipping web"
 
-cp /home/centos/project-roboshop/roboshop.conf /etc/nginx/default.d/roboshop.conf
+cp /home/centos/project-roboshop/roboshop.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILENEW
 VALIDATE $? "copied roboshop reverse proxy config"
 
-systemctl restart nginx
+systemctl restart nginx &>> $LOGFILENEW
 VALIDATE $? "restarting nginx"
