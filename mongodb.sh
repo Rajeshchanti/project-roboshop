@@ -41,7 +41,7 @@ VALIDATE $? "enabling MongoDB"
 systemctl start mongod &>> $LOGFILENEW
 VALIDATE $? "starting mongoDB"
 
-sed -i 's/127.0.0.1/0.0.0.0' /etc/mongod.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 systemctl restart mongod &>> $LOGFILENEW
 VALIDATE $? "restarting mongoDB"
 

@@ -37,10 +37,16 @@ VALIDATE $? "Enabling nodejs latest version"
 dnf install nodejs -y &>> $LOGFILENEW
 VALIDATE $? "Installing nodejs"
 
-useradd roboshop &>> $LOGFILENEW
-VALIDATE $? "Adding user"
+id roboshop #if roboshop user does not exist, then it is failure
+if [ $? -ne 0 ]
+then
+    useradd roboshop &>> $LOGFILENEW
+    VALIDATE $? "roboshop user creation"
+else
+    echo -e "roboshop user already exist $Y SKIPPING $N"
+fi
 
-mkdir /app &>> $LOGFILENEW
+mkdir -p /app &>> $LOGFILENEW
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
@@ -49,7 +55,7 @@ VALIDATE $? "Downloading data"
 cd /app
 VALIDATE $? "Entering to app dir"
 
-unzip /tmp/catalogue.zip &>> $LOGFILENEW
+unzip -o /tmp/catalogue.zip &>> $LOGFILENEW
 VALIDATE $? "Unzipping code"
 
 npm install &>> $LOGFILENEW
