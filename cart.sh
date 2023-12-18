@@ -6,8 +6,8 @@ TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILENEW="/tmp/$0-$TIMESTAMP.log"
 
 R="\e[31m"
-Y="\e[32m"
-G="\e[33m"
+G="\e[32m"
+Y="\e[33m"
 N="\e[0"
 
 echo -e "script started executed at:$Y $TIMESTAMP $N" &>> $LOGFILENEW
