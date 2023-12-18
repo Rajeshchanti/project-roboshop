@@ -8,7 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-echo -e "script started executing at:$Y $TIMESTAMP $N"
+echo -e "script started executing at:$Y $TIMESTAMP $N" &>> $LOGFILENEW
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -28,19 +28,19 @@ else
     echo -e "$G You are root user $N"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $LOGFILENEW
 VALIDATE $? "Disabling nodejs old version"
 
-dnf module enable nodejs:18 -y
+dnf module enable nodejs:18 -y &>> $LOGFILENEW
 VALIDATE $? "Enabling nodejs latest version"
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILENEW
 VALIDATE $? "Installing nodejs"
 
-useradd roboshop
+useradd roboshop &>> $LOGFILENEW
 VALIDATE $? "Adding user"
 
-mkdir /app
+mkdir /app &>> $LOGFILENEW
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
@@ -49,10 +49,10 @@ VALIDATE $? "Downloading data"
 cd /app
 VALIDATE $? "Entering to app dir"
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>> $LOGFILENEW
 VALIDATE $? "Unzipping code"
 
-npm install
+npm install &>> $LOGFILENEW
 VALIDATE $? "Installing dependies"
 
 cp /home/centos/project-roboshop/catalogue.service /etc/systemd/system/catalogue.service
@@ -61,17 +61,17 @@ VALIDATE $? "Copying catalogue service file"
 systemctl daemon-reload
 VALIDATE $? "catalogue daemon reload"
 
-systemctl enable catalogue
+systemctl enable catalogue &>> $LOGFILENEW
 VALIDATE $? "Enabling catalogue"
 
 systemctl start catalogue
 VALIDATE $? "starting catalogue"
 
-cp /home/centos/project-roboshop/mongo.repo /etc/yum.repos.d/mongo.repo
+cp /home/centos/project-roboshop/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILENEW
 VALIDATE $? "copying mongodb file"
 
-dnf install mongodb-org-shell -y
+dnf install mongodb-org-shell -y &>> $LOGFILENEW
 VALIDATE $? "Installing mongoDB Shell"
 
-mongo --host monogodb.techytrees.online </app/schema/catalogue.js
+mongo --host monogodb.techytrees.online </app/schema/catalogue.js &>> $LOGFILENEW
 VALIDATE $? "Loading catalogue data into mongoDB"
