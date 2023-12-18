@@ -53,10 +53,10 @@ VALIDATE $? "creating app dir"
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILENEW
 VALIDATE $? "Downloading cart code"
 
+cd /app
 unzip /tmp/cart.zip &>> $LOGFILENEW
 VALIDATE $? "unzipping cart"
 
-cd /app
 npm install &>> $LOGFILENEW
 VALIDATE $? "Installing dependencies"
 
