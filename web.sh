@@ -41,6 +41,9 @@ VALIDATE $? "start Nginx"
 rm -rf /usr/share/nginx/html/* &>> $LOGFILENEW
 VALIDATE $? "removing default content"
 
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>> $LOGFILENEW
+VALIDATE $? "Downloading web file"
+
 cd /usr/share/nginx/html &>> $LOGFILENEW
 VALIDATE $? "moving to nginx html dir"
 
