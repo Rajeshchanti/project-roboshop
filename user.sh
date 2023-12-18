@@ -52,10 +52,10 @@ VALIDATE $? "creating app dir"
 curl -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> $LOGFILENEW
 VALIDATE $? "Downloading code"
 
+cd /app
 unzip -o /tmp/user.zip &>> $LOGFILENEW
 VALIDATE $? "unzipping user code"
 
-cd /app
 npm install &>> $LOGFILENEW
 VALIDATE $? "Installing dependencies"
 
