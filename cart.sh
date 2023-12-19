@@ -30,13 +30,13 @@ else
 fi
 
 dnf module disable nodejs -y &>> $LOGFILENEW
-VALIDATE $? " Disable current nodejs version"
+VALIDATE $? "Disable current nodejs version"
 
 dnf module enable nodejs:18 -y 
-VALIDATE $? " Enable nodejs:18"
+VALIDATE $? "Enable nodejs:18"
 
 dnf install nodejs -y &>> $LOGFILENEW
-VALIDATE $? " Installing Nodejs"
+VALIDATE $? "Installing Nodejs"
 
 id roboshop
 if [ $? -ne 0 ]
@@ -54,7 +54,7 @@ curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG
 VALIDATE $? " Downloading cart code"
 
 cd /app
-unzip /tmp/cart.zip &>> $LOGFILENEW
+unzip -o /tmp/cart.zip &>> $LOGFILENEW
 VALIDATE $? "unzipping cart"
 
 npm install &>> $LOGFILENEW
