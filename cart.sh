@@ -10,7 +10,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0"
 
-echo -e "script started executed at:$Y $TIMESTAMP $N" &>> $LOGFILENEW
+echo -e " script started executed at:$Y $TIMESTAMP $N" &>> $LOGFILENEW
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
@@ -30,19 +30,19 @@ else
 fi
 
 dnf module disable nodejs -y &>> $LOGFILENEW
-VALIDATE $? "Disable current nodejs version"
+VALIDATE $? " Disable current nodejs version"
 
-dnf module enable nodejs:18 -y &>> $LOGFILENEW
-VALIDATE $? "Enable nodejs:18"
+dnf module enable nodejs:18 -y 
+VALIDATE $? " Enable nodejs:18"
 
-dnf install nodejs -y
-VALIDATE $? "Installing Nodejs"
+dnf install nodejs -y &>> $LOGFILENEW
+VALIDATE $? " Installing Nodejs"
 
 id roboshop
 if [ $? -ne 0 ]
 then
     useradd roboshop
-    VALIDATE $? "creating user"
+    VALIDATE $? " creating user"
 else
     echo -e "Already user is existing $Y SKIPPING $N"
 fi
@@ -51,7 +51,7 @@ mkdir -p /app &>> $LOGFILENEW
 VALIDATE $? "creating app dir"
 
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILENEW
-VALIDATE $? "Downloading cart code"
+VALIDATE $? " Downloading cart code"
 
 cd /app
 unzip /tmp/cart.zip &>> $LOGFILENEW
@@ -61,13 +61,13 @@ npm install &>> $LOGFILENEW
 VALIDATE $? "Installing dependencies"
 
 cp /home/centos/project-roboshop/cart.service /etc/systemd/system/cart.service &>> $LOGFILENEW
-VALIDATE $? "copying cart service"
+VALIDATE $? " copying cart service"
 
 systemctl daemon-reload &>> $LOGFILENEW
-VALIDATE $? "reloading daemon"
+VALIDATE $? " reloading daemon"
 
 systemctl enable cart
-VALIDATE $? "Enable cart"
+VALIDATE $? " Enable cart"
 
 systemctl start cart &>> $LOGFILENEW
-VALIDATE $? "start cart"
+VALIDATE $? " start cart"
