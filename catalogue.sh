@@ -28,7 +28,7 @@ else
     echo -e "$G You are root user $N"
 fi
 
-dnf module disable nodejs -y &>> $LOGFILENEW
+dnf module disable nodejs -y
 VALIDATE $? "Disabling nodejs old version"
 
 dnf module enable nodejs:18 -y &>> $LOGFILENEW
@@ -40,7 +40,7 @@ VALIDATE $? "Installing nodejs"
 id roboshop #if roboshop user does not exist, then it is failure
 if [ $? -ne 0 ]
 then
-    useradd roboshop &>> $LOGFILENEW
+    useradd roboshop
     VALIDATE $? "roboshop user creation"
 else
     echo -e "roboshop user already exist $Y SKIPPING $N"
