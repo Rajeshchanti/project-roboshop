@@ -21,7 +21,7 @@ then
     echo -e "$R Run the command with root access $N"
     exit 1
 else
-    echo -e "G You are root user $N"
+    echo -e "$G You are root user $N"
 fi
 
 dnf module disable mysql -y &>> $LOGFILENEW
