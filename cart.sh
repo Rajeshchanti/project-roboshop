@@ -44,11 +44,11 @@ then
     useradd roboshop
     VALIDATE $? " creating user"
 else
-    echo -e "Already user is existing $Y SKIPPING $N"
+    echo -e " Already user is existing $Y SKIPPING $N"
 fi
 
 mkdir -p /app &>> $LOGFILENEW
-VALIDATE $? "creating app dir"
+VALIDATE $? " creating app dir"
 
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILENEW
 VALIDATE $? " Downloading cart code"
