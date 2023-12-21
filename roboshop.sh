@@ -1,6 +1,6 @@
 #!/bin/bash
 AMI=ami-03265a0778a880afb
-SG_ID="sg-08a7ada26617bee9a"
+SG_ID="i-0039bd14b935de8e4"
 INSTANCE=("mongodb" "redis" "cart" "catalogue" "mysql" "payment" "rabbitmq" "shipping" "user" "web")
 ZONE_ID=Z0822260ZMBAKGYDEXJ0
 DOMAIN_NAME="techytrees.online"
@@ -13,7 +13,7 @@ do
     else
         INSTANCE_TYPE="t2.micro"
     fi
-    PRIVATE_IP=$(aws ec2 run-instances --image-id $AMI --instance-type $INSTANCE_TYPE --security-group-ids $SG_ID --tag-specifications "ResourceType=Instance,Tags=[{Key=Name, Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text)
+    PRIVATE_IP=$(aws ec2 run-instances --image-id $AMI --instance-type $INSTANCE_TYPE --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text)
     echo "$i: $PRIVATE_IP"
 
     #create R53 record, make sure you delete existing record
