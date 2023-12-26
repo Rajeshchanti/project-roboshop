@@ -1,6 +1,6 @@
 #!/bin/bash
 AMI=ami-03265a0778a880afb
-SG_ID="sg-044789cab80d971b1"
+SG_ID="sg-09374a857cb999b79"
 INSTANCE=("mongodb" "redis" "cart" "catalogue" "mysql" "payment" "rabbitmq" "shipping" "user" "web")
 ZONE_ID=Z0822260ZMBAKGYDEXJ0
 DOMAIN_NAME="techytrees.online"
