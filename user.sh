@@ -77,5 +77,5 @@ VALIDATE $? "copying mongo file"
 dnf install mongodb-org-shell -y &>> $LOGFILENEW
 VALIDATE $? "Installing mongoDB client"
 
-mongo --host monogodb.techytrees.online </app/schema/user.js &>> $LOGFILENEW
+mongo --host mongodb.techytrees.online </app/schema/user.js &>> $LOGFILENEW
 VALIDATE $? "Loading user data into mongoDB"

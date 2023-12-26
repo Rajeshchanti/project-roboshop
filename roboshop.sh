@@ -1,6 +1,6 @@
 #!/bin/bash
 AMI=ami-03265a0778a880afb
-SG_ID="sg-08a7ada26617bee9a"
+SG_ID="sg-044789cab80d971b1"
 INSTANCE=("mongodb" "redis" "cart" "catalogue" "mysql" "payment" "rabbitmq" "shipping" "user" "web")
 ZONE_ID=Z0822260ZMBAKGYDEXJ0
 DOMAIN_NAME="techytrees.online"
@@ -23,7 +23,7 @@ do
     {
         "Comment": "Creating a record set for cognito endpoint"
         ,"Changes": [{
-        "Action"              : "CREATE"
+        "Action"              : "UPSERT"
         ,"ResourceRecordSet"  : {
             "Name"              : "'$i'.'$DOMAIN_NAME'"
             ,"Type"             : "A"
